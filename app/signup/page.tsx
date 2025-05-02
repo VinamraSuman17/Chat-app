@@ -42,7 +42,9 @@ export default function SignupPage() {
       
       // Redirect to dashboard or messages page on success
       window.location.href = '/messages';
-    } catch (err) {
+    } catch (error) {
+      // Using the error parameter and logging it
+      console.error(error);
       setError('There was a problem creating your account. Please try again.');
     } finally {
       setIsLoading(false);

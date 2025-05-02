@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Message, MessageReaction } from '../lib/types';
+import { User, Message} from '../lib/types';
 import { INITIAL_USERS, INITIAL_MESSAGES, CURRENT_USER_ID, AVAILABLE_REACTIONS, STATUS_OPTIONS } from '../lib/mockData';
 
 export default function MessagingApp() {

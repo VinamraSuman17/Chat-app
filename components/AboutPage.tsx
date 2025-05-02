@@ -41,7 +41,6 @@ export default function AboutPage() {
     >
       <motion.div 
         className="bg-white rounded-2xl shadow-lg p-8 mb-12"
-        variants={itemVariants}
         initial="initial"
         whileHover="hover"
         animate={isHovered ? "hover" : "initial"}
@@ -89,7 +88,7 @@ export default function AboutPage() {
           className="mt-6 text-gray-600 text-lg leading-relaxed"
           variants={itemVariants}
         >
-          Founded in 2023, we're a team passionate about building tools that empower connection and collaboration.
+          Founded in 2023, we&apos;re a team passionate about building tools that empower connection and collaboration.
         </motion.p>
       </motion.div>
       

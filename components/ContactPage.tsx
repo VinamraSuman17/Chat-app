@@ -73,7 +73,7 @@ export default function ContactPage() {
                   Contact Us
                 </h1>
                 <p className="text-gray-500 text-lg mt-1">
-                  We'd love to hear from you
+                  We&apos;d love to hear from you
                 </p>
               </div>
             </motion.div>
@@ -200,7 +200,7 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">Message Sent!</h3>
-                <p className="text-gray-600">Thank you for reaching out. We'll get back to you as soon as possible.</p>
+                <p className="text-gray-600">Thank you for reaching out. We&apos;ll get back to you as soon as possible.</p>
                 <motion.button
                   className="mt-6 px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg"
                   whileHover={{ scale: 1.05 }}

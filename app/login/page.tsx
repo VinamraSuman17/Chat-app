@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (!email || !password) {
@@ -29,7 +29,9 @@ export default function LoginPage() {
       
       // Redirect to dashboard or messages page on success
       window.location.href = '/messages';
-    } catch (err) {
+    } catch (error) {
+      // Using the error parameter instead of underscore to fix the ESLint error
+      console.error('Login error:', error);
       setError('Invalid email or password. Please try again.');
     } finally {
       setIsLoading(false);
@@ -114,6 +116,7 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="you@example.com"
+              required
             />
           </div>
 
@@ -128,6 +131,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="••••••••"
+              required
             />
           </div>
 
@@ -145,9 +149,9 @@ export default function LoginPage() {
               </label>
             </div>
             <div className="text-sm">
-              <a href="#" className="text-indigo-600 hover:text-indigo-500">
+              <Link href="/forgot-password" className="text-indigo-600 hover:text-indigo-500">
                 Forgot your password?
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -159,17 +163,20 @@ export default function LoginPage() {
             className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
             {isLoading ? (
-              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
+              <>
+                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Signing in...
+              </>
             ) : 'Sign in'}
           </motion.button>
         </motion.form>
 
         <motion.div variants={itemVariants} className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Don't have an account yet?{' '}
+            Don&apos;t have an account yet?{' '}
             <Link href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
               Sign up
             </Link>
@@ -189,10 +196,10 @@ export default function LoginPage() {
               whileTap={{ scale: 0.97 }}
               type="button"
               className="py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+              aria-label="Sign in with Google"
             >
-              <span className="sr-only">Sign in with Google</span>
               <svg className="h-5 w-5 mx-auto" viewBox="0 0 24 24">
-                <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z" fill="currentColor" />
+                <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574 2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z" fill="currentColor" />
               </svg>
             </motion.button>
 
@@ -201,8 +208,8 @@ export default function LoginPage() {
               whileTap={{ scale: 0.97 }}
               type="button"
               className="py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+              aria-label="Sign in with Facebook"
             >
-              <span className="sr-only">Sign in with Facebook</span>
               <svg className="h-5 w-5 mx-auto" fill="currentColor" viewBox="0 0 24 24">
                 <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
               </svg>
@@ -213,8 +220,8 @@ export default function LoginPage() {
               whileTap={{ scale: 0.97 }}
               type="button"
               className="py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+              aria-label="Sign in with Twitter"
             >
-              <span className="sr-only">Sign in with Twitter</span>
               <svg className="h-5 w-5 mx-auto" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.1 10.1 0 01-3.127 1.184A4.92 4.92 0 0012.3 8.184a13.956 13.956 0 01-10.12-5.137 4.94 4.94 0 001.524 6.585 4.98 4.98 0 01-2.23-.616v.06a4.923 4.923 0 003.95 4.826 4.888 4.888 0 01-2.222.084 4.942 4.942 0 004.604 3.417 9.875 9.875 0 01-7.306 2.042 13.905 13.905 0 007.556 2.21c9.054 0 14-7.496 14-13.986 0-.21 0-.42-.015-.63A9.936 9.936 0 0024 4.59v-.023z" />
               </svg>
@@ -231,13 +238,13 @@ export default function LoginPage() {
         className="mt-8 text-center text-xs text-gray-500"
       >
         By signing in, you agree to our{' '}
-        <a href="#" className="text-indigo-600 hover:text-indigo-500">
+        <Link href="/terms" className="text-indigo-600 hover:text-indigo-500">
           Terms of Service
-        </a>{' '}
+        </Link>{' '}
         and{' '}
-        <a href="#" className="text-indigo-600 hover:text-indigo-500">
+        <Link href="/privacy" className="text-indigo-600 hover:text-indigo-500">
           Privacy Policy
-        </a>
+        </Link>
       </motion.p>
     </div>
   );
