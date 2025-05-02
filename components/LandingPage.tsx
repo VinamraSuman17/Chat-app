@@ -71,7 +71,7 @@ export default function LandingPage() {
 
   const featureVariants = {
     hidden: { scale: 0.8, opacity: 0 },
-    visible: i => ({
+    visible: (i:number) => ({
       scale: 1,
       opacity: 1,
       transition: {
@@ -83,7 +83,7 @@ export default function LandingPage() {
 
   const chatBubbleVariants = {
     initial: { scale: 0, opacity: 0 },
-    animate: i => ({
+    animate: (i:number) => ({
       scale: 1,
       opacity: 1,
       transition: {
